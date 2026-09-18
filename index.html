@@ -45,6 +45,12 @@ h1{font-size:clamp(30px,8.4vw,46px);font-weight:900;line-height:1.28;letter-spac
 .hero .fine{margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.8}
 .shot{margin-top:28px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg)}
 .cap{font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.75}
+.shot{position:relative}
+.swapbadge{position:absolute;top:12px;left:12px;z-index:2;display:inline-block;background:var(--plum);color:#fff;font-size:12px;font-weight:900;letter-spacing:.02em;border-radius:8px;padding:6px 12px;line-height:1.5;box-shadow:0 6px 16px -8px rgba(30,26,46,.7)}
+.swapnote{margin-top:14px;background:var(--paper);border:2px solid var(--plum);border-radius:14px;padding:16px 18px}
+.swapnote b{display:block;font-size:17px;font-weight:900;color:var(--plum);margin-bottom:6px;line-height:1.5}
+.swapnote p{margin:0;font-size:14.5px;line-height:1.85}
+@media (max-width:520px){.swapnote b{font-size:16px}.swapbadge{font-size:11px;padding:5px 10px}}
 .ph{max-width:340px}
 .ph+.cap{max-width:340px}
 
@@ -125,9 +131,14 @@ footer b{color:var(--ink);font-weight:900}
     </div>
     <p class="fine">試作は claude.ai のリンクです。開くには、送り主（ユウキ）からの共有が要ります。</p>
     <figure class="shot ph">
+      <span class="swapbadge">この顔は仮の見本です</span>
       <img src="img/sp-room.jpg" alt="推しオフィスをiPhoneで開いた画面。推しの大きな写真の下に、今日の予約・問い合わせ・案内文の下書きの報告が並んでいる" width="780" height="1688">
     </figure>
     <p class="cap">iPhoneで開いたところ。カードを横にスワイプすると、次の推しの部屋に移ります。</p>
+    <div class="swapnote">
+      <b>写真は、あなたが自分で入れ替えます。</b>
+      <p>ここに写っている人は、AIで描いた架空の人物です。本物の推しではありません。設定の「写真を選ぶ」から、あなたのカメラロールの写真に入れ替えてはじめて、あなたの推しのオフィスになります。入れた写真はこの端末の中だけに残り、どこにも送られません。</p>
+    </div>
   </div>
 </header>
 
@@ -150,6 +161,7 @@ footer b{color:var(--ink);font-weight:900}
     <p>推しを「AI社員」として担当に割り振ります。宿泊の担当、経理の担当、SNS営業の担当、そして推し活そのものの担当。毎朝、その推しから今日の報告が届きます。</p>
     <p>レンタルスペースの運営でも、やることの中身は変わりません。変わるのは、画面を開く理由だけです。「やらなきゃ」ではなく「会いたい」から開く。この一点のための道具で、それ以外のことはしません。</p>
     <figure class="shot">
+      <span class="swapbadge">この4人は仮の見本です</span>
       <img src="img/pc-rooms.jpg" alt="パソコンで開いたところ。4人の推しの部屋が2列2段に並び、それぞれの今日の報告と相談の入力欄がある" width="1600" height="950">
     </figure>
     <p class="cap">パソコンで開くと、4人の部屋が一度に見えます。</p>
