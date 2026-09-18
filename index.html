@@ -108,6 +108,21 @@ blockquote.me{border-left-color:var(--violet)}
 .links a span{font-size:13px;color:var(--dim)}
 .note{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.8}
 
+/* ---- 自分のものにする ---- */
+.copybox{margin-top:22px;background:var(--paper);border:2px solid var(--plum);border-radius:18px;padding:18px}
+.copybox textarea{
+  display:block;width:100%;min-height:17em;resize:vertical;
+  background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;
+  font:inherit;font-size:14px;line-height:1.85;color:var(--ink);
+}
+.copybtn{
+  display:block;width:100%;margin-top:12px;background:var(--plum);color:#fff;border:0;
+  border-radius:14px;padding:16px;font:inherit;font-size:16px;font-weight:900;cursor:pointer;
+}
+.copybtn.done{background:var(--violet)}
+.copybox .fine{margin-top:12px;font-size:13px;color:var(--mute);line-height:1.8}
+.copybox .fine b{font-weight:900;color:var(--ink)}
+
 footer{background:var(--paper);border-top:1px solid var(--line);padding:32px 0 44px}
 footer p{font-size:13px;color:var(--dim);line-height:1.9}
 footer b{color:var(--ink);font-weight:900}
@@ -272,9 +287,50 @@ footer b{color:var(--ink);font-weight:900}
   </div>
 </section>
 
+<section id="jibun">
+  <div class="wrap">
+    <h2><span class="no">06　自分のものにする</span>自分のClaudeの中に作る</h2>
+    <p>上の試作はユウキのアカウントの中にあります。相談の返事は、開いた人のClaudeが答える仕組みです。だから、あなたのアカウントの中に同じものを作ってしまうのがいちばん早い道です。作り方の仕様は全部こちらで書いてあるので、あなたがすることは<b>貼ることだけ</b>です。GitHubもコマンドも要りません。</p>
+    <div class="steps">
+
+      <div class="step">
+        <span class="n">1</span>
+        <div>
+          <h3>Claudeを開く</h3>
+          <p><a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> を開いてログインします。無料の登録でも作れます。</p>
+        </div>
+      </div>
+
+      <div class="step key">
+        <span class="n">2</span>
+        <div>
+          <h3>下のボタンで文章をコピーしてClaudeに貼る</h3>
+          <p>コピーした文章をそのまま入力欄に貼って送ります。あとはClaudeが仕様を読みに行って、あなたのアカウントの中に画面を作ります。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">3</span>
+        <div>
+          <h3>出てきた画面をiPhoneのSafariで開いてホーム画面に追加する</h3>
+          <p>共有ボタン（□に↑）から「ホーム画面に追加」を選ぶと、アプリのようにアイコンが並びます。あとは設定で推しの写真を入れれば、あなたのオフィスです。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="copybox">
+      <textarea id="copyTxt" rows="9" aria-label="Claudeに貼る文章">推しオフィスというアプリを作ってください。仕様は https://yukitchy.github.io/oshi-office-ddaf2ce5/kit/SPEC.md にあります。参考の完成版は https://yukitchy.github.io/oshi-office-ddaf2ce5/kit/source.html です。両方を読んで、Artifactとして作ってください。私の推しは（ここに推しの名前を4人ぶん書く）です。</textarea>
+      <button class="copybtn" id="copyBtn" type="button">この文章をコピーする</button>
+      <p class="fine">文章の最後の<b>（ここに推しの名前を4人ぶん書く）</b>を、あなたの推し4人の名前に書き換えてから送ってください。書き換えは、貼ったあとのClaudeの入力欄でもできます。</p>
+    </div>
+    <p class="note">うまくいかないときは、ユウキに一言ください。</p>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
-    <h2><span class="no">06　リンク</span>試作とあの日の話</h2>
+    <h2><span class="no">07　リンク</span>試作とあの日の話</h2>
     <div class="links">
       <a href="https://claude.ai/code/artifact/e5f79f87-5b8e-4a62-b3a1-79420222e50e"><b>試作「推しオフィス」を開く</b><span>4人の部屋・相談・読み上げまで、そのまま触れます</span></a>
       <a href="https://claude.ai/code/artifact/1073d6ad-d18d-43bd-bd3b-9f30e296cbe7"><b>車内の話のまとめ</b><span>9月14日、金沢へ戻る93分で出た話</span></a>
@@ -289,5 +345,25 @@ footer b{color:var(--ink);font-weight:900}
   </div>
 </footer>
 
+<script>
+(function(){
+  var b=document.getElementById("copyBtn"), t=document.getElementById("copyTxt"), timer;
+  function flash(msg,done){
+    b.textContent=msg; b.classList.toggle("done",!!done);
+    clearTimeout(timer); timer=setTimeout(function(){b.textContent="この文章をコピーする";b.classList.remove("done")},3000);
+  }
+  b.addEventListener("click",function(){
+    var ok=function(){flash("コピーしました",true)};
+    var ng=function(){
+      t.focus(); t.select();
+      try{ if(document.execCommand("copy")) return ok(); }catch(e){}
+      flash("文章を選びました。⌘C（長押しでコピー）で写してください");
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t.value).then(ok,ng);
+    }else{ ng(); }
+  });
+})();
+</script>
 </body>
 </html>
