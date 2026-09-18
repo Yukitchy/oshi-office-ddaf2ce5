@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>推しオフィス</title>
+<meta name="description" content="推しをAI社員として担当に割り振り、毎朝その推しから今日の報告を受け取る入口。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5FB; --paper:#fff; --ink:#1E1A2E; --mute:#5E5878; --dim:#928CA6;
+  --line:#E4DFF0; --plum:#8E3D8F; --violet:#4B3A8E; --lav:#EFE9F8;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:16px; line-height:1.9; font-weight:500;
+  -webkit-font-smoothing:antialiased; font-feature-settings:"palt";
+  word-break:normal; line-break:strict; overflow-wrap:anywhere;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--violet)}
+
+.wrap{max-width:40em;margin:0 auto;padding:0 20px}
+section{padding:44px 0}
+section+section{border-top:1px solid var(--line)}
+
+/* ---- ヒーロー ---- */
+.hero{background:var(--paper);padding:52px 0 44px;border-top:0}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--plum);margin-bottom:14px}
+h1{font-size:clamp(30px,8.4vw,46px);font-weight:900;line-height:1.28;letter-spacing:-.02em}
+.hero .lead{margin-top:18px;font-size:15.5px;color:var(--mute);line-height:1.95}
+.btns{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.btn{
+  display:inline-block;background:var(--violet);color:#fff;text-decoration:none;
+  font-weight:900;font-size:15.5px;border-radius:14px;padding:14px 24px;
+}
+.btn.sub{background:var(--lav);color:var(--violet)}
+.hero .fine{margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.8}
+.shot{margin-top:28px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg)}
+.cap{font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.75}
+
+/* ---- 見出し ---- */
+h2{font-size:22px;font-weight:900;letter-spacing:-.01em;line-height:1.45;margin-bottom:6px}
+h2 .no{display:block;font-size:11.5px;font-weight:900;letter-spacing:.14em;color:var(--plum);margin-bottom:8px}
+h3{font-size:16.5px;font-weight:900;line-height:1.55;margin-bottom:4px}
+p+p{margin-top:14px}
+section>.wrap>p:first-of-type{margin-top:14px}
+
+/* ---- 引用 ---- */
+.quotes{margin-top:22px;display:grid;gap:12px}
+blockquote{
+  background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--plum);
+  border-radius:4px 16px 16px 4px;padding:16px 18px;
+}
+blockquote p{font-size:16px;font-weight:700;line-height:1.85;margin:0}
+blockquote cite{display:block;margin-top:8px;font-size:12.5px;font-style:normal;color:var(--dim);font-weight:700}
+blockquote.me{border-left-color:var(--violet)}
+
+/* ---- 使い方 ---- */
+.steps{margin-top:24px;display:grid;gap:22px;counter-reset:s}
+.step{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start}
+.step .n{
+  width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;
+  display:grid;place-items:center;font-weight:900;font-size:15px;line-height:1;margin-top:2px;
+}
+.step p{font-size:14.5px;color:var(--mute);margin-top:2px}
+.step.key .n{background:var(--plum)}
+.step.key h3{color:var(--plum)}
+.stepshot{grid-column:1/-1;margin-top:4px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--paper)}
+
+/* ---- カード ---- */
+.cards{margin-top:22px;display:grid;gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.card p{font-size:14.5px;color:var(--mute);margin-top:4px}
+
+/* ---- 決めていること ---- */
+.rules{margin-top:20px;list-style:none;display:grid;gap:12px}
+.rules li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.85}
+.rules li:before{
+  content:"";position:absolute;left:0;top:11px;width:12px;height:12px;
+  border-radius:50%;background:var(--plum);
+}
+.rules li b{font-weight:900}
+.why{margin-top:20px;background:var(--lav);border-radius:18px;padding:18px 20px;font-size:15px;font-weight:700;line-height:1.85}
+
+/* ---- リンク ---- */
+.links{margin-top:20px;display:grid;gap:10px}
+.links a{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;text-decoration:none;color:var(--ink);
+}
+.links a b{display:block;font-size:16px;font-weight:900;color:var(--violet)}
+.links a span{font-size:13px;color:var(--dim)}
+.note{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.8}
+
+footer{background:var(--paper);border-top:1px solid var(--line);padding:32px 0 44px}
+footer p{font-size:13px;color:var(--dim);line-height:1.9}
+footer b{color:var(--ink);font-weight:900}
+
+@media(min-width:760px){
+  section{padding:56px 0}
+  .hero{padding:72px 0 56px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">推しオフィス</p>
+    <h1>推しが、<br>あなたの会社で<br>働きます。</h1>
+    <p class="lead">2026年9月14日、能登からの帰りの車内で出た話を、そのまま形にしました。<br>4人の推しに担当を割り振って、毎朝その推しから今日の報告を受け取る。それだけの道具です。</p>
+    <div class="btns">
+      <a class="btn" href="https://claude.ai/code/artifact/e5f79f87-5b8e-4a62-b3a1-79420222e50e">試作を開く</a>
+      <a class="btn sub" href="#tsukaikata">使い方を見る</a>
+    </div>
+    <p class="fine">試作は claude.ai のリンクです。開くには、送り主（ユウキ）からの共有が要ります。</p>
+    <figure class="shot">
+      <img src="img/sp-room.jpg" alt="推しオフィスをiPhoneで開いた画面。推しの大きな写真の下に、今日の予約・問い合わせ・案内文の下書きの報告が並んでいる" width="780" height="1688">
+    </figure>
+    <p class="cap">iPhoneで開いたところ。カードを横にスワイプすると、次の推しの部屋に移ります。</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2><span class="no">01　きっかけ</span>93分の車内で出た話</h2>
+    <p>Airbnbのホストで能登をめぐる会（参加9名）の帰り道。金沢へ戻る車の中の93分で出てきた話から生まれました。何かを作ろうとして始まった会話ではありません。</p>
+    <div class="quotes">
+      <blockquote><p>フォルダがチャウヌになってるだけでも全然テンション違う</p><cite>美穂さん</cite></blockquote>
+      <blockquote><p>上司のメッセージは開きたくないけど、推しからのメッセージだったら開く</p><cite>美穂さん</cite></blockquote>
+      <blockquote><p>私みたいな推し活女子は一発でちょろい。経済圏大きいよね</p><cite>美穂さん</cite></blockquote>
+      <blockquote class="me"><p>偏った偏愛が、技術とかAIをもっと活かせる</p><cite>ユウキ</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="no">02　これは何か</span>仕事を開く理由を、入れ替える道具</h2>
+    <p>推しを「AI社員」として担当に割り振ります。宿泊の担当、経理の担当、SNS営業の担当、そして推し活そのものの担当。毎朝、その推しから今日の報告が届きます。</p>
+    <p>レンタルスペースの運営でも、やることの中身は変わりません。変わるのは、画面を開く理由だけです。「やらなきゃ」ではなく「会いたい」から開く。この一点のための道具で、それ以外のことはしません。</p>
+    <figure class="shot">
+      <img src="img/pc-rooms.jpg" alt="パソコンで開いたところ。4人の推しの部屋が2列2段に並び、それぞれの今日の報告と相談の入力欄がある" width="1600" height="950">
+    </figure>
+    <p class="cap">パソコンで開くと、4人の部屋が一度に見えます。</p>
+  </div>
+</section>
+
+<section id="tsukaikata">
+  <div class="wrap">
+    <h2><span class="no">03　使い方</span>7つの手順</h2>
+    <div class="steps">
+
+      <div class="step">
+        <span class="n">1</span>
+        <div>
+          <h3>開く</h3>
+          <p>送られたリンクを開くだけです。登録も、アプリのダウンロードも要りません。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">2</span>
+        <div>
+          <h3>設定で、推しの名前と担当を決める</h3>
+          <p>下の「設定」を開いて、4人ぶんの名前と担当を書き換えます。入れた名前は、この端末の中だけに残ります。</p>
+        </div>
+        <figure class="stepshot">
+          <img src="img/sp-set.jpg" alt="設定の画面。4人ぶんの名前と担当の入力欄、その下に「写真を選ぶ」のボタンが並んでいる" width="780" height="1520">
+        </figure>
+      </div>
+
+      <div class="step key">
+        <span class="n">3</span>
+        <div>
+          <h3>推しの写真を、自分で入れる</h3>
+          <p>ここがいちばんの中身です。「写真を選ぶ」から、あなたのカメラロールの推しの写真をそのまま入れられます。写真はこの端末の中だけに保存され、どこにも送られません。最初から入っている似顔絵は、AIで描いた架空の人物です。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">4</span>
+        <div>
+          <h3>カードを横にスワイプして、推しを切り替える</h3>
+          <p>指で左右に払うと、次の推しの部屋に移ります。下の丸い印が、いま何人目かを示します。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">5</span>
+        <div>
+          <h3>「相談する」で、推しに仕事の相談をする</h3>
+          <p>「◯◯に相談する」を押して、そのまま話しかけます。返信文の下書き、支払いの見直し、営業先の条件。担当の推しが答えます。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">6</span>
+        <div>
+          <h3>🔊 を押すと、報告を声で聞ける</h3>
+          <p>報告の横の 🔊 を押すと、読み上げます。手が離せないときや、朝の支度をしながらでも聞けます。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="n">7</span>
+        <div>
+          <h3>iPhoneのSafariで「ホーム画面に追加」</h3>
+          <p>Safariの下の共有ボタン（□に↑）から「ホーム画面に追加」を選ぶと、アプリのようにアイコンが並びます。毎朝ここから開けます。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="no">04　決めていること</span>権利の線を、先に引いてあります</h2>
+    <ul class="rules">
+      <li>実在のアイドルの<b>写真も声も使いません</b>。</li>
+      <li>最初から入っている人物の画像は、<b>すべてAIで描いた架空の人物</b>です。本人ではありません。</li>
+      <li>本物の推しは、<b>持ち主が自分で入れる</b>形にしてあります。入れた写真はその端末の中だけに残ります。</li>
+    </ul>
+    <p class="why">だから、人に配っても問題になりません。この線の引き方そのものが、この道具が商品として成り立つ理由です。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="no">05　これからできること</span>やろうと思えば、ここまで伸びます</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>推し名義のLINEで予約通知</h3>
+        <p>予約が入ったら、推しの名前のLINEから知らせが届きます。</p>
+      </div>
+      <div class="card">
+        <h3>アクスタにNFCシールを貼る</h3>
+        <p>アクリルスタンドの裏にシールを貼って、iPhoneをかざすと推しオフィスが開きます。シールは10枚430円ほどです。</p>
+      </div>
+      <div class="card">
+        <h3>声工房 — 自分の声で読み上げる</h3>
+        <p>自分の声を録っておいて、報告の読み上げに使えます。いまはユウキの手元で動いているところです。</p>
+      </div>
+      <div class="card">
+        <h3>美穂新聞</h3>
+        <p>毎朝6時に届く一枚の新聞。1面が推し活、2面が株。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="no">06　リンク</span>試作と、あの日の話</h2>
+    <div class="links">
+      <a href="https://claude.ai/code/artifact/e5f79f87-5b8e-4a62-b3a1-79420222e50e"><b>試作「推しオフィス」を開く</b><span>4人の部屋・相談・読み上げまで、そのまま触れます</span></a>
+      <a href="https://claude.ai/code/artifact/1073d6ad-d18d-43bd-bd3b-9f30e296cbe7"><b>車内の話のまとめ</b><span>9月14日、金沢へ戻る93分で出た話</span></a>
+    </div>
+    <p class="note">この2つは claude.ai のリンクです。開くには、送り主（ユウキ）が共有している必要があります。開けないときは、ユウキに一言ください。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>作成　<b>Yuuki Ichihara</b>（秋葉原 体験ホスト）<br>2026年9月</p>
+  </div>
+</footer>
+
+</body>
+</html>
